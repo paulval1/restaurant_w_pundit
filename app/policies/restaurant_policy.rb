@@ -28,10 +28,19 @@ class RestaurantPolicy < ApplicationPolicy
 
   def update?
     #  can update if I am the owner
-    record.user == user
+    user_is_owner?
   end
 
   def destroy?
-    record.user == user  # Only restaurant creator can destroy it
+    # 1. admin can destroy
+
+    # 2. owner can destroy
+    user_is_owner? # Only restaurant creator can destroy it
+  end
+
+  private
+
+  def user_is_owner?
+    record.user == user
   end
 end

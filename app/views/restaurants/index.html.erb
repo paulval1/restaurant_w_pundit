@@ -16,7 +16,10 @@
       <tr>
         <td><%= restaurant.name %></td>
         <td><%= restaurant.user.email %></td>
-        <td><%= link_to 'Show', restaurant %></td>
+
+         <% if policy(restaurant).show? %>
+          <td><%= link_to 'Show', restaurant %></td>
+        <% end %>
 
         <% if policy(restaurant).edit? %>
            <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
@@ -33,4 +36,6 @@
 
 <br>
 
-<%= link_to 'New Restaurant', new_restaurant_path %>
+<% if policy(Restaurant).new? %>
+  <%= link_to 'New Restaurant', new_restaurant_path %>
+<% end %>
